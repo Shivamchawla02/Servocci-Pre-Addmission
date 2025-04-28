@@ -100,7 +100,8 @@ const PreAdmissionForm = () => {
     }
   
     try {
-      const response = await axios.post('http://localhost:3001/api/submit-form', formData);
+      const response = await axios.post('https://pre-addmission-backend.onrender.com/api/submit-form', formData);
+
   
       if (response.status === 200) {
         toast.success("Form submitted successfully!");
