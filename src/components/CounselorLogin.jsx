@@ -18,7 +18,7 @@ function CounselorLogin() {
     <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-r from-[#001b48] to-[#ff4f00]">
       <div className="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md transition-transform duration-300 hover:scale-105">
         <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-8 text-[#430000]">
-          Servocci Counsellors
+          Welcome to Servocci Counsellors
         </h2>
 
         <form onSubmit={handleProceed} className="flex flex-col gap-6">
