@@ -12,10 +12,11 @@ const PreAdmissionForm = () => {
     gender: "",
     phone: "",
     email: "",
-    courses: [""],  // Initialize with one empty field
-    colleges: [""], // Initialize with one empty field
-    cities: [""],   // Initialize with one empty field
+    courses: [""],
+    colleges: [""],
+    cities: [""],
     category: "",
+    remarks: "",  // <-- Add this line
   });
 
   const [consent, setConsent] = useState(false); // State for consent checkbox
@@ -23,6 +24,13 @@ const PreAdmissionForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+  
+    // Auto-resize the textarea when typing in remarks
+    if (e.target.tagName === "TEXTAREA") {
+      e.target.style.height = "auto"; // Reset height
+      e.target.style.height = e.target.scrollHeight + "px"; // Set new height
+    }
+  
     setFormData({ ...formData, [name]: value });
   };
 
@@ -327,6 +335,19 @@ const PreAdmissionForm = () => {
             >
               + Add Another City
             </button>
+          </div>
+
+          {/* Remarks */}
+          <div className="flex flex-col md:col-span-2">
+            <label className="block text-[#2c6975] font-semibold mb-2">Remarks (Optional)</label>
+            <textarea
+              name="remarks"
+              value={formData.remarks}
+              onChange={handleChange}
+              rows="1" // Start small
+              className="w-full border-2 border-[#2c6975] p-3 rounded-lg focus:outline-none focus:border-[#ff4f00] resize-none overflow-hidden"
+              placeholder="Any additional information you want to share..."
+            />
           </div>
 
           {/* Consent Checkbox */}
