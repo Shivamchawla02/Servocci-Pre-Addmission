@@ -121,10 +121,9 @@ const PreAdmissionForm = () => {
         });
         setConsent(false);
   
-        // Redirect after a short delay
         setTimeout(() => {
-          window.location.href = "https://servocci.com";
-        }, 2000); // 2 seconds delay (enough to show the toast)
+        window.location.href = "https://servocci.com";
+        }, 800); // Very short delay, still allows toast to flash
       }
     } catch (err) {
       console.error("Submission error:", err);
