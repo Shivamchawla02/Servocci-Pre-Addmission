@@ -19,6 +19,7 @@ const PreAdmissionForm = () => {
   });
 
   const [consent, setConsent] = useState(false); // State for consent checkbox
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -86,22 +87,27 @@ const PreAdmissionForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
+    if (isSubmitting) return; // Prevent re-submission
+    setIsSubmitting(true); // Start loading
+  
     if (!formData.fullName || !formData.phone) {
       toast.error("Please fill all required fields!");
+      setIsSubmitting(false);
       return;
     }
     if (!/^\d{10}$/.test(formData.phone)) {
       toast.error("Phone number must be 10 digits!");
+      setIsSubmitting(false);
       return;
     }
     if (!consent) {
       toast.error("Please give your consent to proceed.");
+      setIsSubmitting(false);
       return;
     }
   
     try {
       const response = await axios.post('https://pre-addmission-backend.onrender.com/api/submit-form', formData);
-
   
       if (response.status === 200) {
         toast.success("Form submitted successfully!");
@@ -122,16 +128,17 @@ const PreAdmissionForm = () => {
         setConsent(false);
   
         setTimeout(() => {
-        window.location.href = "https://servocci.com";
-        }, 800); // Very short delay, still allows toast to flash
+          window.location.href = "https://servocci.com";
+        }, 800);
       }
     } catch (err) {
       console.error("Submission error:", err);
       toast.error("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false); // Reset loading
     }
   };
-  
-  
+    
   return (
     <div className="min-h-screen flex items-center justify-center py-10 px-4 bg-gradient-to-r from-[#001b48] to-[#ff4f00]">
       <div className="bg-[#ffffff] p-10 rounded-3xl shadow-2xl w-full max-w-4xl">
@@ -338,12 +345,15 @@ const PreAdmissionForm = () => {
 
           {/* Submit Button */}
           <div className="w-full flex justify-center mt-6 md:col-span-2">
-            <button
-              type="submit"
-              className="bg-[#ff4f00] text-white py-3 px-10 rounded-xl shadow-lg font-semibold"
-            >
-              Submit Application
-            </button>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={`bg-[#ff4f00] text-white py-3 px-10 rounded-xl shadow-lg font-semibold ${
+              isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+          >
+            {isSubmitting ? "Submitting..." : "Submit Application"}
+          </button>
           </div>
         </form>
       </div>

@@ -9,9 +9,9 @@ function CounselorLogin() {
     e.preventDefault();
     toast.success("Redirecting...", {
       position: "top-center",
-      autoClose: 1000,
+      autoClose: 600,
     });
-    setTimeout(() => navigate("/pre-admission"), 1100);
+    setTimeout(() => navigate("/pre-admission"), 700); // Matches toast display time
   };
 
   return (
