@@ -15,8 +15,8 @@ const PreAdmissionForm = () => {
     courses: [""],
     colleges: [""],
     cities: [""],
-    category: "",
-    remarks: "",  // <-- Add this line
+    schoolName: "",  // changed from category
+    remarks: "",
   });
 
   const [consent, setConsent] = useState(false); // State for consent checkbox
@@ -98,8 +98,8 @@ const PreAdmissionForm = () => {
     if (isSubmitting) return; // Prevent re-submission
     setIsSubmitting(true); // Start loading
   
-    if (!formData.fullName || !formData.phone) {
-      toast.error("Please fill all required fields!");
+    if (!formData.fullName || !formData.phone || !formData.email) {
+      toast.error("Please fill in Full Name, Email, and Phone Number!");
       setIsSubmitting(false);
       return;
     }
@@ -131,7 +131,8 @@ const PreAdmissionForm = () => {
           courses: [""],
           colleges: [""],
           cities: [""],
-          category: "",
+          schoolName: "",
+          remarks: "",
         });
         setConsent(false);
   
@@ -249,24 +250,18 @@ const PreAdmissionForm = () => {
             />
           </div>
 
-          {/* Category */}
-          <div className="flex flex-col">
-            <label className="block text-[#2c6975] font-semibold mb-2">Admission Category *</label>
-            <select
-              name="category"
-              value={formData.category}
-              onChange={handleChange}
-              className="w-full border-2 border-[#2c6975] p-3 rounded-lg focus:outline-none focus:border-[#ff4f00]"
-              required
-            >
-              <option value="">Select</option>
-              <option value="General">General</option>
-              <option value="SC">SC</option>
-              <option value="ST">ST</option>
-              <option value="OBC">OBC</option>
-              <option value="Others">Others</option>
-            </select>
-          </div>
+          {/* School Name */}
+            <div className="flex flex-col">
+              <label className="block text-[#2c6975] font-semibold mb-2">School Name</label>
+              <input
+                type="text"
+                name="schoolName"
+                value={formData.schoolName}
+                onChange={handleChange}
+                className="w-full border-2 border-[#2c6975] p-3 rounded-lg focus:outline-none focus:border-[#ff4f00]"
+              />
+            </div>
+
 
           {/* Preferred Colleges */}
           <div className="flex flex-col">
