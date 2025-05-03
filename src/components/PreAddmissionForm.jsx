@@ -13,9 +13,10 @@ const PreAdmissionForm = () => {
     phone: "",
     email: "",
     courses: [""],
+    skills: [""],  // NEW FIELD
     colleges: [""],
     cities: [""],
-    schoolName: "",  // changed from category
+    schoolName: "",
     remarks: "",
   });
 
@@ -40,6 +41,12 @@ const PreAdmissionForm = () => {
     setFormData({ ...formData, courses: updatedCourses });
   };
 
+  const handleSkillChange = (e, index) => {
+    const updatedSkills = [...formData.skills];
+    updatedSkills[index] = e.target.value;
+    setFormData({ ...formData, skills: updatedSkills });
+  };
+
   const handleCollegeChange = (e, index) => {
     const updatedColleges = [...formData.colleges];
     updatedColleges[index] = e.target.value;
@@ -62,6 +69,19 @@ const PreAdmissionForm = () => {
       }
     } else {
       toast.error("You can add up to 3 courses only.");
+    }
+  };
+
+  const addSkillCourse = () => {
+    if (formData.skills.length < 3) {
+      const lastSkill = formData.skills[formData.skills.length - 1];
+      if (lastSkill.trim() !== "") {
+        setFormData({ ...formData, skills: [...formData.skills, ""] });
+      } else {
+        toast.error("Please fill the current skill course before adding another.");
+      }
+    } else {
+      toast.error("You can add up to 3 skill training courses only.");
     }
   };
 
@@ -171,7 +191,7 @@ const PreAdmissionForm = () => {
 
           {/* Father's Name */}
           <div className="flex flex-col">
-            <label className="block text-[#2c6975] font-semibold mb-2">Father's Name *</label>
+            <label className="block text-[#2c6975] font-semibold mb-2">Father's Name </label>
             <input
               type="text"
               name="fatherName"
@@ -184,7 +204,7 @@ const PreAdmissionForm = () => {
 
           {/* Mother's Name */}
           <div className="flex flex-col">
-            <label className="block text-[#2c6975] font-semibold mb-2">Mother's Name *</label>
+            <label className="block text-[#2c6975] font-semibold mb-2">Mother's Name </label>
             <input
               type="text"
               name="motherName"
@@ -197,7 +217,7 @@ const PreAdmissionForm = () => {
 
           {/* Date of Birth */}
           <div className="flex flex-col">
-            <label className="block text-[#2c6975] font-semibold mb-2">Date of Birth *</label>
+            <label className="block text-[#2c6975] font-semibold mb-2">Date of Birth </label>
             <input
               type="date"
               name="dob"
@@ -210,7 +230,7 @@ const PreAdmissionForm = () => {
 
           {/* Gender */}
           <div className="flex flex-col">
-            <label className="block text-[#2c6975] font-semibold mb-2">Gender *</label>
+            <label className="block text-[#2c6975] font-semibold mb-2">Gender </label>
             <select
               name="gender"
               value={formData.gender}
@@ -240,7 +260,7 @@ const PreAdmissionForm = () => {
 
           {/* Email */}
           <div className="flex flex-col">
-            <label className="block text-[#2c6975] font-semibold mb-2">Email Address</label>
+            <label className="block text-[#2c6975] font-semibold mb-2">Email Address *</label>
             <input
               type="email"
               name="email"
@@ -262,33 +282,9 @@ const PreAdmissionForm = () => {
               />
             </div>
 
-
-          {/* Preferred Colleges */}
+            {/* Preferred Courses */}
           <div className="flex flex-col">
-            <label className="block text-[#2c6975] font-semibold mb-2">Preferred Colleges *</label>
-            {formData.colleges.map((college, index) => (
-              <div key={index} className="flex items-center space-x-3">
-                <input
-                  type="text"
-                  value={college}
-                  onChange={(e) => handleCollegeChange(e, index)}
-                  className="w-full border-2 border-[#2c6975] p-3 rounded-lg focus:outline-none focus:border-[#ff4f00]"
-                  required
-                />
-              </div>
-            ))}
-            <button
-              type="button"
-              onClick={addCollege}
-              className="mt-3 bg-[#ff4f00] text-white py-2 px-4 rounded-full"
-            >
-              + Add Another College
-            </button>
-          </div>
-
-          {/* Preferred Courses */}
-          <div className="flex flex-col">
-            <label className="block text-[#2c6975] font-semibold mb-2">Preferred Courses *</label>
+            <label className="block text-[#2c6975] font-semibold mb-2">Preferred Degree Courses </label>
             {formData.courses.map((course, index) => (
               <div key={index} className="flex items-center space-x-3">
                 <input
@@ -306,6 +302,53 @@ const PreAdmissionForm = () => {
               className="mt-3 bg-[#ff4f00] text-white py-2 px-4 rounded-full"
             >
               + Add Another Course
+            </button>
+          </div>
+
+            {/* Skill Training Courses */}
+            <div className="flex flex-col">
+              <label className="block text-[#2c6975] font-semibold mb-2">Skill Training Courses</label>
+              {formData.skills.map((skill, index) => (
+                <div key={index} className="flex items-center space-x-3">
+                  <input
+                    type="text"
+                    value={skill}
+                    onChange={(e) => handleSkillChange(e, index)}
+                    className="w-full border-2 border-[#2c6975] p-3 rounded-lg focus:outline-none focus:border-[#ff4f00]"
+                    required
+                  />
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={addSkillCourse}
+                className="mt-3 bg-[#ff4f00] text-white py-2 px-4 rounded-full"
+              >
+                + Add Another Skill Course
+              </button>
+            </div>
+
+
+          {/* Preferred Colleges */}
+          <div className="flex flex-col">
+            <label className="block text-[#2c6975] font-semibold mb-2">Preferred Colleges </label>
+            {formData.colleges.map((college, index) => (
+              <div key={index} className="flex items-center space-x-3">
+                <input
+                  type="text"
+                  value={college}
+                  onChange={(e) => handleCollegeChange(e, index)}
+                  className="w-full border-2 border-[#2c6975] p-3 rounded-lg focus:outline-none focus:border-[#ff4f00]"
+                  required
+                />
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={addCollege}
+              className="mt-3 bg-[#ff4f00] text-white py-2 px-4 rounded-full"
+            >
+              + Add Another College
             </button>
           </div>
 
