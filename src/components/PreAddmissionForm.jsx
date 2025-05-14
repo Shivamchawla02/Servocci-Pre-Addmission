@@ -5,20 +5,22 @@ import axios from 'axios';
 
 const PreAdmissionForm = () => {
   const [formData, setFormData] = useState({
-    fullName: "",
-    fatherName: "",
-    motherName: "",
-    dob: "",
-    gender: "",
-    phone: "",
-    email: "",
-    courses: [""],
-    skills: [""],  // NEW FIELD
-    colleges: [""],
-    cities: [""],
-    schoolName: "",
-    remarks: "",
-  });
+  fullName: "",
+  fatherName: "",
+  motherName: "",
+  dob: "",
+  gender: "",
+  phone: "",
+  email: "",
+  courses: [""],
+  skills: [""],
+  colleges: [""],
+  cities: [""],
+  schoolName: "",
+  remarks: "",
+  counsellorCode: "", // NEW FIELD
+});
+
 
   const [consent, setConsent] = useState(false); // State for consent checkbox
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -198,7 +200,6 @@ const PreAdmissionForm = () => {
               value={formData.fatherName}
               onChange={handleChange}
               className="w-full border-2 border-[#2c6975] p-3 rounded-lg focus:outline-none focus:border-[#ff4f00]"
-              required
             />
           </div>
 
@@ -211,7 +212,6 @@ const PreAdmissionForm = () => {
               value={formData.motherName}
               onChange={handleChange}
               className="w-full border-2 border-[#2c6975] p-3 rounded-lg focus:outline-none focus:border-[#ff4f00]"
-              required
             />
           </div>
 
@@ -224,7 +224,6 @@ const PreAdmissionForm = () => {
               value={formData.dob}
               onChange={handleChange}
               className="w-full border-2 border-[#2c6975] p-3 rounded-lg focus:outline-none focus:border-[#ff4f00]"
-              required
             />
           </div>
 
@@ -236,7 +235,6 @@ const PreAdmissionForm = () => {
               value={formData.gender}
               onChange={handleChange}
               className="w-full border-2 border-[#2c6975] p-3 rounded-lg focus:outline-none focus:border-[#ff4f00]"
-              required
             >
               <option value="">Select</option>
               <option value="Male">Male</option>
@@ -254,7 +252,6 @@ const PreAdmissionForm = () => {
               value={formData.phone}
               onChange={handleChange}
               className="w-full border-2 border-[#2c6975] p-3 rounded-lg focus:outline-none focus:border-[#ff4f00]"
-              required
             />
           </div>
 
@@ -292,7 +289,6 @@ const PreAdmissionForm = () => {
                   value={course}
                   onChange={(e) => handleCourseChange(e, index)}
                   className="w-full border-2 border-[#2c6975] p-3 rounded-lg focus:outline-none focus:border-[#ff4f00]"
-                  required
                 />
               </div>
             ))}
@@ -315,7 +311,6 @@ const PreAdmissionForm = () => {
                     value={skill}
                     onChange={(e) => handleSkillChange(e, index)}
                     className="w-full border-2 border-[#2c6975] p-3 rounded-lg focus:outline-none focus:border-[#ff4f00]"
-                    required
                   />
                 </div>
               ))}
@@ -339,7 +334,6 @@ const PreAdmissionForm = () => {
                   value={college}
                   onChange={(e) => handleCollegeChange(e, index)}
                   className="w-full border-2 border-[#2c6975] p-3 rounded-lg focus:outline-none focus:border-[#ff4f00]"
-                  required
                 />
               </div>
             ))}
@@ -362,7 +356,6 @@ const PreAdmissionForm = () => {
                   value={city}
                   onChange={(e) => handleCityChange(e, index)}
                   className="w-full border-2 border-[#2c6975] p-3 rounded-lg focus:outline-none focus:border-[#ff4f00]"
-                  required
                 />
               </div>
             ))}
@@ -387,6 +380,18 @@ const PreAdmissionForm = () => {
               placeholder="Any additional information you want to share..."
             />
           </div>
+
+          {/* Counsellor Code */}
+            <div className="flex flex-col md:col-span-2">
+              <label className="block text-[#2c6975] font-semibold mb-2">Counsellor Code (Optional)</label>
+              <input
+                type="text"
+                name="counsellorCode"
+                value={formData.counsellorCode || ""}
+                onChange={handleChange}
+                className="w-full border-2 border-[#2c6975] p-3 rounded-lg focus:outline-none focus:border-[#ff4f00]"
+              />
+            </div>
 
           {/* Consent Checkbox */}
           <div className="flex items-center space-x-2 mt-4 md:col-span-2">
