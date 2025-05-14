@@ -151,11 +151,14 @@ const PreAdmissionForm = () => {
           phone: "",
           email: "",
           courses: [""],
+          skills: [""],
           colleges: [""],
           cities: [""],
           schoolName: "",
           remarks: "",
+          counsellorCode: "",
         });
+
         setConsent(false);
   
         setTimeout(() => {
