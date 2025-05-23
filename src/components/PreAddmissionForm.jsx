@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const PreAdmissionForm = () => {
   const [formData, setFormData] = useState({
@@ -24,6 +25,7 @@ const PreAdmissionForm = () => {
 
   const [consent, setConsent] = useState(false); // State for consent checkbox
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -161,9 +163,7 @@ const PreAdmissionForm = () => {
 
         setConsent(false);
   
-        setTimeout(() => {
-          window.location.href = "https://servocci.com";
-        }, 800);
+       navigate("/thank-you");
       }
     } catch (err) {
       console.error("Submission error:", err);
@@ -351,7 +351,7 @@ const PreAdmissionForm = () => {
 
           {/* Preferred Cities */}
           <div className="flex flex-col">
-            <label className="block text-[#2c6975] font-semibold mb-2">Preferred Cities (Domestic / International) *</label>
+            <label className="block text-[#2c6975] font-semibold mb-2">Preferred Cities (Domestic / International)</label>
             {formData.cities.map((city, index) => (
               <div key={index} className="flex items-center space-x-3">
                 <input
