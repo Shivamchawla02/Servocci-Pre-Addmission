@@ -482,6 +482,20 @@ const PreAdmissionForm = () => {
       className="w-full border-2 border-[#2c6975] p-3 rounded-lg focus:outline-none focus:border-[#ff4f00]"
     />
   </div>
+  {/* Counsellor Code */}
+  <div className="flex flex-col">
+    <label className="block text-[#2c6975] font-semibold mb-2">
+      {texts[language].counsellorCode}
+    </label>
+    <input
+      type="text"
+      name="counsellorCode"
+      value={formData.counsellorCode}
+      onChange={handleChange}
+      placeholder={texts[language].counsellorCode}
+      className="w-full border-2 border-[#2c6975] p-3 rounded-lg focus:outline-none focus:border-[#ff4f00]"
+    />
+  </div>
 
   {/* Consent Checkbox */}
   <div className="flex items-center md:col-span-2 space-x-3">
