@@ -3,6 +3,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const PreAdmissionForm = () => {
   const [formData, setFormData] = useState({
@@ -21,6 +23,20 @@ const PreAdmissionForm = () => {
   remarks: "",
   counsellorCode: "", // NEW FIELD
 });
+
+const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const codeFromURL = params.get("code");
+
+    if (codeFromURL) {
+      setFormData((prev) => ({
+        ...prev,
+        counsellorCode: codeFromURL,
+      }));
+    }
+  }, [location.search]);
 
 
   const [consent, setConsent] = useState(false); // State for consent checkbox
@@ -491,7 +507,7 @@ const PreAdmissionForm = () => {
       type="text"
       name="counsellorCode"
       value={formData.counsellorCode}
-      onChange={handleChange}
+      disabled
       placeholder={texts[language].counsellorCode}
       className="w-full border-2 border-[#2c6975] p-3 rounded-lg focus:outline-none focus:border-[#ff4f00]"
     />
